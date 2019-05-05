@@ -3,6 +3,35 @@
     <title>Add Item</title>
   </head>
   <body>
-    Add item to inventory by filling in the form below.
+    <h1>Add item to inventory by filling in the form below.</h1><br>
+    <form>
+      Brand<br>
+      <input type="text" name="brand"><br>
+      Size (6M, 3-6M, 2T)<br>
+      <input type="text" name="size"><br>
+      Style<br>
+      <select name="style">
+        <option value="onesie">Onesie/Bodysuit</option>
+        <option value="layette">Layette/Nightgown</option>
+        <option value="footie">Footed PJs</option>
+        <option value="pants">Pants</option>
+        <option value="top">Top</option>
+      </select>
+      <h2>Wear and Tear</h2>
+      Hold down CTRL to select multiple options (scroll for more)<br>
+      <select name="wear" size="4" multiple>
+        <option value="stain">Any stains visible</option>
+        <option value="pilling">Pilling</option>
+        <option value="fading">Fading</option>
+        <option value="broken">Broken or missing zippers, snaps, or buttons</option>
+        <option value="threads">Lose or pulled out threads</option>
+        <option value="tag">Missing sale tag</option>
+        <option value="label">COMPLETELY faded or missing inner label</option>
+        <option value="fadedlabel">Faded inner label - still legible</option>
+        <option value="wrinkled">Wrinkled</option>
+        <option value="washed">Obviously washed</option>
+        <option value="smell">Smells strongly of perfume, detergent, or smoke</option>
+      </select>
+    </form>
   </body>
 </html>
