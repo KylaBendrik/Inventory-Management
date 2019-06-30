@@ -1,30 +1,47 @@
 function printList(input){
   var boxInputs = input.split(';');
   var boxes =[];
+  function assign(box, spot, input){
+    if (spot === 0){
+      box.a = input;
+    } else {
+      if (spot === 1){
+        box.b = input;
+      } else {
+        if (spot === 2){
+          box.c  = input;
+        }
+      }
+    }
+  }
+
   boxInputs.forEach((boxInput, index) =>{
     //make object
     if (boxInput !== ""){
-      var box = {info: "", array: []}
+      var box = {a: "", b: "", c: ""}
       
       var boxArray = boxInput.split(",");
       //if bits have quotes, find the other quote and combine
       var temp = []
       var adding = false;
+      var spot = 0;
       boxArray.forEach((element) => {
         if (adding === false){
           if (element.startsWith('"')){
-            console.log("A Quotation mark HAS BEEN FOUND");
             adding = true;
             temp.push(element.replace('"', ''))
           } else {
-            box.array.push(element);
+            assign(box, spot, element);
+            spot ++;
           }
         } else {
           if (adding){
             if (element.includes('"')){
-              console.log("Closing quote has been found")
               temp.push(element.replace('"', ''))
-              box.array.push(temp);
+
+              assign(box, spot, temp);
+
+              spot ++;
               temp = [];
               adding = false;
             } else {
@@ -33,12 +50,9 @@ function printList(input){
           }  
         }
         
-        console.log ("adding = " + adding)
       })
-      console.log(temp)
 
       //fill object
-      box.info = boxInput;
       boxes.push(box)
     }
   });
@@ -48,13 +62,19 @@ function printList(input){
     var row = document.createElement('tr');
     
     //make cells
-    var cell = document.createElement('td');
+    var cellA = document.createElement('td');
+    var cellB = document.createElement('td');
+    var cellC = document.createElement('td');
 
     //fill cells
-    cell.appendChild(document.createTextNode(box.info));
+    cellA.appendChild(document.createTextNode(box.a));
+    cellB.appendChild(document.createTextNode(box.b));
+    cellC.appendChild(document.createTextNode(box.c));
 
     //append cells
-    row.appendChild(cell);
+    row.appendChild(cellA);
+    row.appendChild(cellB);
+    row.appendChild(cellC);
 
     outputTbody.appendChild(row);
   })
