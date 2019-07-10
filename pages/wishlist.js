@@ -1,8 +1,16 @@
 function assign(box, spot, input){
-  const spotLabels = ['date', 'customerName', 'email', 'baby', 'gender', 'birthday', 'weight', 'height', 'head', 'favColors']
+  const spotLabels = ['date', 'customerName', 'email', 'baby', 'gender', 'birthday', 'weight', 'height', 'head', 'favColors', 'patterns']
   box[spotLabels[spot]] = input;
 }
-function colorBoxes(favColors){
+function printNumber(number){
+  
+    if (Math.floor(number) !== number){
+      return (Math.floor(number) + " or " + (Math.floor(number) + 1))
+    } else {
+      return number;
+    }
+}
+function colorBoxes(favColors, items){
   var total = favColors.length;
   
   //create table of colors
@@ -25,49 +33,49 @@ function colorBoxes(favColors){
 
   if (favColors.includes("Red")){
     red.style.backgroundColor = "#ff0000";
-    amounts[0] = Math.floor((1 / total) * 100)
+    amounts[0] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Orange")){
     orange.style.backgroundColor = "#ff9d00";    
-    amounts[1] = Math.floor((1 / total) * 100)
+    amounts[1] = printNumber((1 / total) * items);
   }
   if (favColors.includes(" Yellow")){
     yellow.style.backgroundColor = "#fff600";
-    amounts[2] = Math.floor((1 / total) * 100)
+    amounts[2] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Green")){
     green.style.backgroundColor = "#07bc3d";
-    amounts[3] = Math.floor((1 / total) * 100)
+    amounts[3] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Blue")){
     blue.style.backgroundColor = "#009dff";
-    amounts[4] = Math.floor((1 / total) * 100)
+    amounts[4] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Purple")){
     purple.style.backgroundColor = "#d39df2";
-    amounts[5] = Math.floor((1 / total) * 100)
+    amounts[5] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Pink")){
     pink.style.backgroundColor = "#ffc6f8";
-    amounts[6] = Math.floor((1 / total) * 100)
+    amounts[6] = printNumber((1 / total) * items);
   }
   if (favColors.includes("White")){
-    amounts[7] = Math.floor((1 / total) * 100)
+    amounts[7] = printNumber((1 / total) * items);
   }
   if (favColors.includes("Grey")){
     grey.style.backgroundColor = "#bfbfbf";
-    amounts[8] = Math.floor((1 / total) * 100)
+    amounts[8] = printNumber((1 / total) * items);
   }
   
-  red.appendChild(document.createTextNode(amounts[0]+ "%"))
-  orange.appendChild(document.createTextNode(amounts[1]+ "%"))
-  yellow.appendChild(document.createTextNode(amounts[2]+ "%"))
-  green.appendChild(document.createTextNode(amounts[3]+ "%"))
-  blue.appendChild(document.createTextNode(amounts[4]+ "%"))
-  purple.appendChild(document.createTextNode(amounts[5]+ "%"))
-  pink.appendChild(document.createTextNode(amounts[6]+ "%"))
-  white.appendChild(document.createTextNode(amounts[7]+ "%"))
-  grey.appendChild(document.createTextNode(amounts[8]+ "%"))
+  red.appendChild(document.createTextNode(amounts[0]))
+  orange.appendChild(document.createTextNode(amounts[1]))
+  yellow.appendChild(document.createTextNode(amounts[2]))
+  green.appendChild(document.createTextNode(amounts[3]))
+  blue.appendChild(document.createTextNode(amounts[4]))
+  purple.appendChild(document.createTextNode(amounts[5]))
+  pink.appendChild(document.createTextNode(amounts[6]))
+  white.appendChild(document.createTextNode(amounts[7]))
+  grey.appendChild(document.createTextNode(amounts[8]))
 
   row1.appendChild(red);
   row1.appendChild(orange);
@@ -93,7 +101,7 @@ function printList(input){
   boxInputs.forEach((boxInput, index) =>{
     //make object
     if (boxInput !== ""){
-      var box = {date: "", customerName: "", email: "", baby: "", gender: "", birthday: "", weight: "", height: "", head: "", favColors: "[]"}
+      var box = {date: "", customerName: "", email: "", baby: "", gender: "", birthday: "", weight: "", height: "", head: "", favColors: "[]", patterns: "[]"}
       
       var boxArray = boxInput.split(",");
       //if bits have quotes, find the other quote and combine
@@ -150,6 +158,7 @@ function printList(input){
     var cellHeight = document.createElement('td');
     var cellHead = document.createElement('td');
     var cellFavColors = document.createElement('td');
+    var cellPatterns = document.createElement('td');
 
     //fill cells
     cellDate.appendChild(document.createTextNode(box.date));
@@ -162,6 +171,7 @@ function printList(input){
     cellHeight.appendChild(document.createTextNode(box.height));
     cellHead.appendChild(document.createTextNode(box.head));
     cellFavColors.appendChild(document.createTextNode(box.favColors));
+    cellPatterns.appendChild(document.createTextNode(box.patterns));
 
     //append cells
     row.appendChild(cellDate);
@@ -174,6 +184,7 @@ function printList(input){
     row.appendChild(cellHeight);
     row.appendChild(cellHead);
     row.appendChild(cellFavColors);
+    row.appendChild(cellPatterns);
 
     outputTbody.appendChild(row);
   })
@@ -198,8 +209,68 @@ function printList(input){
     }
     name.appendChild(document.createTextNode(nameValue));
 
+    //table of stuff
+    var table = document.createElement('table');
+    var header = document.createElement('thead');
+    var categories = document.createElement('th');
+    var fiveH = document.createElement('th');
+    var tenH = document.createElement('th');
+    var fifteenH = document.createElement('th');
+    var twentyH = document.createElement('th');
+
+    
+    categories.appendChild(document.createTextNode('Categories'));
+    fiveH.appendChild(document.createTextNode('For Five Items'));
+    tenH.appendChild(document.createTextNode('For Ten Items'));
+    fifteenH.appendChild(document.createTextNode('For Fifteen Items'));
+    twentyH.appendChild(document.createTextNode('For Twenty Items'));
+
+    header.appendChild(categories);
+    header.appendChild(fiveH);
+    header.appendChild(tenH);
+    header.appendChild(fifteenH);
+    header.appendChild(twentyH);
+
+    var tBody = document.createElement('tbody');
+    var colors = document.createElement('tr');
+    var colorsLabel = document.createElement('td');
+    var colorsFive = document.createElement('td');
+    var colorsTen = document.createElement('td');
+    var colorsFifteen = document.createElement('td');
+    var colorsTwenty = document.createElement('td');
+
+    colorsLabel.appendChild(document.createTextNode('Colors'));
+    colorsFive.appendChild(colorBoxes(box.favColors, 5));
+    colorsTen.appendChild(colorBoxes(box.favColors, 10));
+    colorsFifteen.appendChild(colorBoxes(box.favColors, 15));
+    colorsTwenty.appendChild(colorBoxes(box.favColors, 20));
+
+    colors.appendChild(colorsLabel);
+    colors.appendChild(colorsFive);
+    colors.appendChild(colorsTen);
+    colors.appendChild(colorsFifteen);
+    colors.appendChild(colorsTwenty);
+
+
+    tBody.appendChild(colors)
+
+    //patterns
+    patterns.forEach(pattern => {
+      var row = document.createElement('tr');
+      var label = document.createElement('td');
+
+      label.appendChild(document.createTextNode(pattern))
+
+      row.appendChild(label);
+
+      tBody.appendChild(row);
+    })
+
+    table.appendChild(header);
+    table.appendChild(tBody);
+
     wishlists.appendChild(name)
-    wishlists.appendChild(colorBoxes(box.favColors))
+    wishlists.appendChild(table)
   })
   console.log(boxes)
 }
